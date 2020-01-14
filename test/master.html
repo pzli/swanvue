@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>master逻辑层</title>
+    <script type="text/javascript">
+    (function (global) {
+        /* 统一装饰global */
+        global.swanGlobal = undefined;
+        global.basePath = global.location.pathname.replace(/[^\\/]*?\.html$/, '');
+        global.feMasterPreloadStart = Date.now();
+        global.isMaster = true;
+        /* 统一处理端上挂的envVariables */
+        var ENV_VARIABLES = {scheme: 'baiduboxapp'};
+        try {
+            global._envVariables = JSON.parse(window._naSwan.getEnvVariables());
+            global._envVariables.scheme = global._envVariables.scheme || ENV_VARIABLES.scheme;
+        } catch (err) {
+            global._envVariables = ENV_VARIABLES;
+        }
+    })(window);
+    </script>
+    <!-- 稳定性打点 -->
+    <!-- <script type="text/javascript" src="../monitor/index.js"></script> -->
+    <!-- swan master hook -->
+</head>
+
+<body>
+    <script type="text/javascript" src="./master.js"></script>
+    <script type="text/javascript">
+    (function (global) {
+        global.feMasterPreloadEnd = Date.now();
+    })(window);
+    </script>
+</body>
+</html>
